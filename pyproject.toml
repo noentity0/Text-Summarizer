@@ -1,0 +1,30 @@
+[project]
+name = "text-summarizer"
+version = "1.0.0"
+description = "Dialogue summarization with fine-tuned T5-small on samsum"
+requires-python = ">=3.10"
+
+dependencies = [
+    # Deep learning
+    "torch>=2.0.0",
+
+    # HuggingFace — model, tokenizer, training
+    "transformers>=4.40.0",
+    "sentencepiece>=0.1.99",   # required by T5Tokenizer
+
+    # Data
+    "pandas>=2.0.0",
+
+    # Web server
+    "fastapi>=0.110.0",
+    "uvicorn[standard]>=0.29.0",
+    "jinja2>=3.1.0",
+    "python-multipart>=0.0.9",
+    "pydantic>=2.0.0",
+]
+
+[project.optional-dependencies]
+# Only needed if training on GPU via Colab / local CUDA
+train = [
+    "accelerate>=0.27.0",
+]
