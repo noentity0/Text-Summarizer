@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+*.spec
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model weights (too large for git — download/train locally)
+saved_summary_model/
+"Text Summarizer"/saved_summary_model/
+
+# Dataset CSVs (download from Kaggle)
+"Text Summarizer"/samsum-train.csv
+"Text Summarizer"/samsum-test.csv
+"Text Summarizer"/samsum-validation.csv
+Text Summarizer/samsum-train.csv
+Text Summarizer/samsum-test.csv
+Text Summarizer/samsum-validation.csv
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/

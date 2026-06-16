@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarizer</title>
+    <link rel="stylesheet" href="/static/style.css"></head>
+<body>
+    <div class="container">
+        <h1>Text Summarizer</h1>
+        <h3>Using HuggingFace Transformer</h3>
+        <!-- <p>Write/Paste the content below for quick summarization</p> -->
+
+        <form id="summarization-form">
+            <textarea id="input-content" placeholder="Enter Your content here" required></textarea>
+            <button type="submit">Summarize</button>
+        </form>
+
+        <div class="summary-output">
+            <h3 id="summary-heading">Content Summary</h3>
+            <p id="summary-text"></p>
+        </div>
+    </div>
+
+<script>
+        document.getElementById("summarization-form").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            // Get references to elements
+            const dialogueInput = document.getElementById("input-content");
+            const summaryText = document.getElementById("summary-text");
+            const submitButton = e.target.querySelector("button");
+
+            const dialogue = dialogueInput.value.trim();
+            if (!dialogue) return;
+
+            // Show processing message and disable button
+            summaryText.innerText = "Processing ... ";
+            submitButton.disabled = true;
+
+            try {
+                // Send dialogue to backend
+                const response = await fetch("/summarize/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ dialogue }),
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Server error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                summaryText.innerText = data.summary || "No summary returned.";
+            } catch (err) {
+                summaryText.innerText = `Error: ${err.message}`;
+            } finally {
+                submitButton.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
